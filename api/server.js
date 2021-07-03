@@ -10,7 +10,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.use("/projects", projectRouter);
+server.use("/api/projects", projectRouter);
 
 server.get("/", async (req, res, next) => {
   try {
