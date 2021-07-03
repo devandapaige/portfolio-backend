@@ -22,7 +22,7 @@ const findById = async (id) => {
 };
 
 const addNewProject = async (newItem) => {
-  const newItem = await db
+  const newProj = await db
     .insert(
       {
         title: newItem.title,
@@ -34,7 +34,7 @@ const addNewProject = async (newItem) => {
       "project_id"
     )
     .into("projects");
-  return findById(newItem.project_id);
+  return findById(newProj.project_id);
 };
 
 const updateProject = async (input, id) => {
