@@ -32,7 +32,7 @@ router.get("/:id", checkId, async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const { project_id, title, photo_src, description, link, repo } = req.body;
-    const newProj = await projectModel.addProject({
+    const newProj = await projectModel.addNewProject({
       project_id,
       title,
       photo_src,
