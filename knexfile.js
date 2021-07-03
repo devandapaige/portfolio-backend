@@ -12,7 +12,8 @@ const sharedConfig = {
     min: 0,
     max: 15,
   },
-  migrations: { directory: "./api/data/migrations" },
+  migrations: { directory: "./api/data/migrations",
+ },
   seeds: { directory: "./api/data/seeds" },
   debug: true,
 };

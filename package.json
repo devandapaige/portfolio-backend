@@ -1,5 +1,5 @@
 {
-  "name": "build-week-scaffolding-node",
+  "name": "backend-template",
   "version": "1.0.0",
   "scripts": {
     "start": "node index.js",
@@ -7,10 +7,10 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "migrateh": "heroku run knex migrate:latest -a ehabackend",
-    "rollbackh": "heroku run knex migrate:rollback -a ehabackend",
-    "databaseh": "heroku pg:psql -a ehabackend",
-    "seedh": "heroku run knex seed:run -a ehabackend",
+    "migrateh": "heroku run knex migrate:latest -a amandanelson",
+    "rollbackh": "heroku run knex migrate:rollback -a amandanelson",
+    "databaseh": "heroku pg:psql -a amandanelson",
+    "seedh": "heroku run knex seed:run -a amandanelson",
     "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
     "deploy": "git push heroku main"
   },
@@ -27,7 +27,7 @@
     "express": "=4.17.1",
     "helmet": "=4.4.1",
     "jsonwebtoken": "^8.5.1",
-    "knex": "=0.95.3",
+    "knex": "^0.95.3",
     "knex-cleaner": "=1.3.1",
     "pg": "=8.5.1"
   },
