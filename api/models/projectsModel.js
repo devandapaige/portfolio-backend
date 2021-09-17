@@ -13,12 +13,8 @@ const findAll = async () => {
 };
 
 const findById = async (id) => {
-  const data = await db("projects").where("project_id", id);
-  if (data) {
-    return { ...data };
-  } else {
-    console.log(`findById did not find any data with id: ${id}`);
-  }
+  const data = await db("projects").where("project_id", id).select("*");
+  return data;
 };
 
 const addNewProject = async (newItem) => {

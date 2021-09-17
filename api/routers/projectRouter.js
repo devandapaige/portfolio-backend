@@ -9,7 +9,7 @@ const { checkId } = require("../middleware/projectMiddleware");
 // Declare Router:
 const router = express.Router();
 
-// [GET] all projects
+// [GET] all projects tested and passed
 router.get("/", async (req, res, next) => {
   try {
     res.json(await projectModel.findAll());
@@ -19,7 +19,8 @@ router.get("/", async (req, res, next) => {
 });
 
 // [GET] project by ID
-router.get("/:id", checkId, async (req, res, next) => {
+// 💢 Returning a empty object as a 200 code, when it shouldn't. There seems to be an issue with the sql selection where "project_id" = ? and not "project_id" = req.params.id.
+router.get("/:id", async (req, res, next) => {
   try {
     res.json(await projectModel.findById(req.params.id));
   } catch (err) {
@@ -49,7 +50,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // [PUT] edit new project
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", checkId, async (req, res, next) => {
   try {
     const { project_id, title, photo_src, description, link, repo } = req.body;
     const updatedProj = await projectModel.updateProject({
