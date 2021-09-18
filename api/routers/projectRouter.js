@@ -9,7 +9,8 @@ const { checkId } = require("../middleware/projectMiddleware");
 // Declare Router:
 const router = express.Router();
 
-// [GET] all projects tested and passed
+// [GET] all projects
+// ✅ tested and working
 router.get("/", async (req, res, next) => {
   try {
     res.json(await projectModel.findAll());
@@ -19,8 +20,8 @@ router.get("/", async (req, res, next) => {
 });
 
 // [GET] project by ID
-// 💢 Returning a empty object as a 200 code, when it shouldn't. There seems to be an issue with the sql selection where "project_id" = ? and not "project_id" = req.params.id.
-router.get("/:id", async (req, res, next) => {
+// ✅ tested and working
+router.get("/:id", checkId, async (req, res, next) => {
   try {
     res.json(await projectModel.findById(req.params.id));
   } catch (err) {
@@ -29,6 +30,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // [POST] new project
+// ✅ tested and working
 // project_id, title, photo_src, description, link, repo
 router.post("/", async (req, res, next) => {
   try {
@@ -42,7 +44,7 @@ router.post("/", async (req, res, next) => {
       repo,
     });
     res.status(201).json({
-      message: `New Project ${newProj.title}, was successfully added`,
+      message: `New Project "${req.body.title}", was successfully added`,
     });
   } catch (err) {
     next(err);
@@ -50,9 +52,11 @@ router.post("/", async (req, res, next) => {
 });
 
 // [PUT] edit new project
+// ✅ tested and working
 router.put("/:id", checkId, async (req, res, next) => {
   try {
     const { project_id, title, photo_src, description, link, repo } = req.body;
+    console.log(req.body);
     const updatedProj = await projectModel.updateProject({
       project_id,
       title,
@@ -61,18 +65,21 @@ router.put("/:id", checkId, async (req, res, next) => {
       link,
       repo,
     });
-    res.json(updatedProj);
+    res.status(201).json({
+      message: `${req.body.title} updated.`,
+    });
   } catch (err) {
     next(err);
   }
 });
 
 // [DELETE] project by ID
+// ✅ tested and working
 router.delete("/:id", checkId, async (req, res, next) => {
   try {
-    const proj = await projectModel.nuke(req.params.id);
+    const proj = await projectModel.deleteProject(req.params.id);
     res.json({
-      message: `${proj.title} was nuked`,
+      message: `${req.body.title} was nuked`,
     });
   } catch (err) {
     next(err);
