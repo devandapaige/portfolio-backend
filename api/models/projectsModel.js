@@ -18,7 +18,7 @@ const findById = async (id) => {
 };
 
 const addNewProject = async (newItem) => {
-  const newProj = await db
+  return await db
     .insert(
       {
         title: newItem.title,
@@ -30,12 +30,20 @@ const addNewProject = async (newItem) => {
       "project_id"
     )
     .into("projects");
-  return findById(newProj.project_id);
 };
 
-const updateProject = async (input, id) => {
-  const updatedItem = await db("projects").where("id", id).update(input);
-  return findById(updatedItem, input.project_id);
+const updateProject = async (input) => {
+  const updatedItem = await db("projects")
+    .where("project_id", input.project_id)
+    .update({
+      project_id: input.project_id,
+      title: input.title,
+      photo_src: input.photo_src,
+      description: input.description,
+      link: input.link,
+      repo: input.repo,
+    });
+  return findById(input.project_id);
 };
 
 const deleteProject = async (id) => {
